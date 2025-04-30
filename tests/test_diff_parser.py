@@ -1,5 +1,4 @@
 import subprocess
-import pytest
 from src.prioritizer.diff_parser import parse_diff, get_changed_files_and_lines
 
 # Sample unified diff for testing
