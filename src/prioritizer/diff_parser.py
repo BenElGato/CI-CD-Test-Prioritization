@@ -13,8 +13,11 @@ def get_diff(base: str = "HEAD~1", head: str = "HEAD") -> str:
     """
     cmd = ["git", "diff", f"{base}", f"{head}"]
     result = subprocess.run(
-        cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True
-    )
+        cmd,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        check=True)
     return result.stdout
 
 
