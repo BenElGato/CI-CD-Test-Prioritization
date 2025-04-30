@@ -28,8 +28,8 @@ jobs:
           pip install -r requirements.txt
           pip install flake8 black coverage codecov
 
-      - name: Format with Black
-        run: black .
+      - name: Lint with Black
+        run: black --check .
 
       - name: Lint with Flake8
         run: flake8 src tests
