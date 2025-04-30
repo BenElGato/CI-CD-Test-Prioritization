@@ -3,7 +3,7 @@ import re
 from typing import Dict, Set, List, Optional
 
 
-def get_diff(base: str = 'HEAD~1', head: str = 'HEAD') -> str:
+def get_diff(base: str = "HEAD~1", head: str = "HEAD") -> str:
     """
     Obtain the unified diff between two Git references.
 
@@ -11,8 +11,10 @@ def get_diff(base: str = 'HEAD~1', head: str = 'HEAD') -> str:
     :param head: The target Git ref (e.g., 'HEAD').
     :return: A unified diff string.
     """
-    cmd = ['git', 'diff', f'{base}', f'{head}']
-    result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True)
+    cmd = ["git", "diff", f"{base}", f"{head}"]
+    result = subprocess.run(
+        cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True
+    )
     return result.stdout
 
 
@@ -29,8 +31,8 @@ def parse_diff(diff_text: str) -> Dict[str, Set[int]]:
     new_line_num = 0
 
     # Regular expressions for diff headers and hunks
-    diff_file_re = re.compile(r'^diff --git a/(.+) b/(.+)$')
-    hunk_header_re = re.compile(r'^@@ -\d+(?:,\d+)? \+(\d+)(?:,(\d+))? @@')
+    diff_file_re = re.compile(r"^diff --git a/(.+) b/(.+)$")
+    hunk_header_re = re.compile(r"^@@ -\d+(?:,\d+)? \+(\d+)(?:,(\d+))? @@")
 
     for line in diff_text.splitlines():
         # Detect a new file diff
@@ -59,11 +61,11 @@ def parse_diff(diff_text: str) -> Dict[str, Set[int]]:
             continue
 
         # Process lines in the hunk
-        if line.startswith('+') and not line.startswith('+++'):
+        if line.startswith("+") and not line.startswith("+++"):
             # This is an added or modified line in the new file
             new_line_num += 1
             file_changes[current_file].add(new_line_num)
-        elif line.startswith('-') and not line.startswith('---'):
+        elif line.startswith("-") and not line.startswith("---"):
             # Removed line in old file; don't increment new_line_num
             continue
         else:
@@ -73,7 +75,9 @@ def parse_diff(diff_text: str) -> Dict[str, Set[int]]:
     return file_changes
 
 
-def get_changed_files_and_lines(base: str = 'HEAD~1', head: str = 'HEAD') -> Dict[str, Set[int]]:
+def get_changed_files_and_lines(
+    base: str = "HEAD~1", head: str = "HEAD"
+) -> Dict[str, Set[int]]:
     """
     Convenience wrapper to get changed lines between two refs.
     """
@@ -81,7 +85,7 @@ def get_changed_files_and_lines(base: str = 'HEAD~1', head: str = 'HEAD') -> Dic
     return parse_diff(diff_text)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Example usage: print changed lines per file
     changes = get_changed_files_and_lines()
     for f, lines in changes.items():
