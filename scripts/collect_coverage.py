@@ -4,7 +4,7 @@ import numpy as np
 import importlib.util
 import sys
 from types import ModuleType
-from typing import List, Callable
+from typing import Callable, Tuple
 import inspect
 import os
 import ast
@@ -54,27 +54,40 @@ def build_coverage_matrix(test_funcs: List[Callable], source_file: str) -> (np.n
         matrix[i] = get_coverage_for_test(func, source_file, all_lines)
     return matrix, all_lines
 
-if __name__ == "__main__":
-    import argparse
+def build_coverage_matrix_from_files(
+    source_path: str,
+    tests_path: str,
+) -> Tuple[np.ndarray, List[int], List[str]]:
+    """
+    Load tests and build a coverage matrix.
 
-    parser = argparse.ArgumentParser(description="Build a test coverage matrix for Python source code.")
-    parser.add_argument("--source", required=True, help="Path to the Python source file (e.g., calculator.py)")
-    parser.add_argument("--tests", required=True, help="Path to the test file (e.g., test_calculator.py)")
-    args = parser.parse_args()
-
-    # Add this near the top of collect_coverage.py (before importing the test module)
-    test_dir = os.path.dirname(os.path.abspath(args.tests))
-    source_dir = os.path.dirname(os.path.abspath(args.source))
-
-    # Add both the test and source dirs to sys.path
+    Returns:
+        matrix: 2D numpy array (tests x lines)
+        lines: sorted list of all coverable line numbers
+        test_names: list of test function names in the same order as matrix rows
+    """
+    # prepare import paths
+    test_dir = os.path.dirname(os.path.abspath(tests_path))
+    source_dir = os.path.dirname(os.path.abspath(source_path))
     sys.path.insert(0, test_dir)
     sys.path.insert(0, source_dir)
 
-    test_module = load_module_from_file(args.tests)
-    test_funcs = [func for name, func in inspect.getmembers(test_module, inspect.isfunction)
-            if name.startswith("test_")]
+    # load and discover test functions
+    test_module = load_module_from_file(tests_path)
+    test_funcs = []
+    test_names = []
+    for name, func in inspect.getmembers(test_module, inspect.isfunction):
+        if name.startswith("test_"):
+            test_funcs.append(func)
+            test_names.append(name)
 
-    matrix, lines = build_coverage_matrix(test_funcs, args.source)
+    if not test_funcs:
+        raise RuntimeError("No test functions found in {}".format(tests_path))
 
-    print("Coverage matrix (rows = test cases, columns = source lines):")
-    print(matrix)
+    # find all lines and build matrix
+    all_lines = get_all_coverable_lines(source_path)
+    matrix = np.zeros((len(test_funcs), len(all_lines)), dtype=int)
+    for idx, func in enumerate(test_funcs):
+        matrix[idx] = get_coverage_for_test(func, source_path, all_lines)
+
+    return matrix, all_lines, test_names
