@@ -4,11 +4,10 @@ import numpy as np
 import importlib.util
 import sys
 from types import ModuleType
-from typing import Callable, Tuple
 import inspect
-import os
 import ast
-from typing import List
+from typing import List, Tuple, Callable
+import os
 
 def load_module_from_file(filepath: str) -> ModuleType:
     """Dynamically load a Python module from a file."""
@@ -19,75 +18,82 @@ def load_module_from_file(filepath: str) -> ModuleType:
     spec.loader.exec_module(module)
     return module
 
-def get_all_coverable_lines(source_file: str) -> List[int]:
-    """Parse the source with ast and return every node.lineno you can find."""
+def get_all_coverable_lines_excluding_defs(source_file: str) -> List[int]:
     with open(source_file, "r") as f:
         tree = ast.parse(f.read(), filename=source_file)
 
-    all_lines = {
-        node.lineno
-        for node in ast.walk(tree)
-        if hasattr(node, "lineno")
-    }
-    return sorted(all_lines)
+    coverable_lines = set()
+    def_lines = set()
 
-def get_coverage_for_test(test_func: Callable, source_file: str, all_lines: List[int]) -> np.ndarray:
-    """Run a single test and get the coverage vector."""
+    for node in ast.walk(tree):
+        if hasattr(node, "lineno"):
+            coverable_lines.add(node.lineno)
+            if isinstance(node, ast.FunctionDef):
+                def_lines.add(node.lineno)
+
+    return sorted(coverable_lines - def_lines)
+
+
+
+
+def get_all_code_lines(source_files: List[str]) -> List[Tuple[str, int]]:
+    """Return a list of (file, lineno) for all executable lines."""
+    all_lines = []
+    for source_file in source_files:
+        lines = get_all_coverable_lines_excluding_defs(source_file)
+        all_lines.extend([(os.path.abspath(source_file), line) for line in lines])
+    return all_lines
+
+def collect_test_functions(test_files: List[str]) -> List[Tuple[Callable, str]]:
+    """Collect all test functions across all test files."""
+    test_funcs = []
+    for test_file in test_files:
+        module = load_module_from_file(test_file)
+        for name, func in inspect.getmembers(module, inspect.isfunction):
+            if name.startswith("test_"):
+                test_id = f"{test_file}::{name}"
+                test_funcs.append((func, test_id))
+    return test_funcs
+
+def get_flat_coverage_vector(test_func: Callable, all_code_lines: List[Tuple[str, int]]) -> np.ndarray:
+    """Get coverage vector for a test function against all files+lines."""
     cov = coverage.Coverage()
     cov.start()
     test_func()
     cov.stop()
     cov.save()
 
-    filename, statements, excluded, missing, _ = cov.analysis2(source_file)
-    executed_lines = [lineno for lineno in statements if lineno not in missing]
+    covered = set()
+    for file in cov.get_data().measured_files():
+        filename, statements, excluded, missing, _ = cov.analysis2(file)
+        executed = [line for line in get_all_coverable_lines_excluding_defs(file) if line not in missing]
+        covered.update((file, line) for line in executed)
 
-    return np.array([1 if line in executed_lines else 0 for line in all_lines])
+    return np.array([1 if line in covered else 0 for line in all_code_lines], dtype=int)
 
 
-def build_coverage_matrix(test_funcs: List[Callable], source_file: str) -> (np.ndarray, List[int]):
-    """Build the full coverage matrix from a list of test functions."""
-    all_lines = get_all_coverable_lines(source_file)
-    matrix = np.zeros((len(test_funcs), len(all_lines)), dtype=int)
-
-    for i, func in enumerate(test_funcs):
-        matrix[i] = get_coverage_for_test(func, source_file, all_lines)
-    return matrix, all_lines
-
-def build_coverage_matrix_from_files(
-    source_path: str,
-    tests_path: str,
-) -> Tuple[np.ndarray, List[int], List[str]]:
+def build_global_coverage_matrix(
+    source_files: List[str],
+    test_files: List[str]
+) -> Tuple[np.ndarray, List[str], List[str]]:
     """
-    Load tests and build a coverage matrix.
+    Build a global coverage matrix for all test functions vs all code lines.
 
     Returns:
-        matrix: 2D numpy array (tests x lines)
-        lines: sorted list of all coverable line numbers
-        test_names: list of test function names in the same order as matrix rows
+        matrix: 2D array of shape (num_tests, num_code_lines)
+        code_lines: list of "filename:lineno" strings
+        test_ids: list of "test_file.py::test_func" identifiers
     """
-    # prepare import paths
-    test_dir = os.path.dirname(os.path.abspath(tests_path))
-    source_dir = os.path.dirname(os.path.abspath(source_path))
-    sys.path.insert(0, test_dir)
-    sys.path.insert(0, source_dir)
+    all_code_lines = get_all_code_lines(source_files)
+    test_funcs = collect_test_functions(test_files)
 
-    # load and discover test functions
-    test_module = load_module_from_file(tests_path)
-    test_funcs = []
-    test_names = []
-    for name, func in inspect.getmembers(test_module, inspect.isfunction):
-        if name.startswith("test_"):
-            test_funcs.append(func)
-            test_names.append(name)
+    matrix = np.zeros((len(test_funcs), len(all_code_lines)), dtype=int)
+    test_ids = []
 
-    if not test_funcs:
-        raise RuntimeError("No test functions found in {}".format(tests_path))
+    for i, (func, test_id) in enumerate(test_funcs):
+        matrix[i] = get_flat_coverage_vector(func, all_code_lines)
+        test_ids.append(test_id)
 
-    # find all lines and build matrix
-    all_lines = get_all_coverable_lines(source_path)
-    matrix = np.zeros((len(test_funcs), len(all_lines)), dtype=int)
-    for idx, func in enumerate(test_funcs):
-        matrix[idx] = get_coverage_for_test(func, source_path, all_lines)
+    code_lines = [f"{filename}:{lineno}" for filename, lineno in all_code_lines]
 
-    return matrix, all_lines, test_names
+    return matrix, test_ids, code_lines
