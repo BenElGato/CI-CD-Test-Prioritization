@@ -5,6 +5,8 @@ from typing import List
 import pandas as pd
 import numpy as np
 
+from src.prioritizer.diff_parser import get_changed_files_and_lines
+
 TARGET_FOLDER = "../dummy_targets"
 TEST_FOLDER  = "../dummy_targets/tests"
 
@@ -59,3 +61,25 @@ if __name__ == "__main__":
 
     coverage_of_lines = matrix.any(axis=0)
     print(coverage_of_lines)
+
+    # TODO: Actually get the diffs to verify behavior!
+    changes = get_changed_files_and_lines("v1.0", "v1.1")
+    '''
+    Changes will be in the following format:
+    {
+      "file1.py": {10, 11, 12},
+      "folder/file2.md": {15, 16}
+  }
+
+    '''
+    print(changes)
+
+    csv_columns = [f"{file}:{lineno}" for file, lines in changes.items() for lineno in sorted(lines)]
+    relevant_matrix = matrix[csv_columns]
+    save_matrix_with_labels(relevant_matrix, cleaned_test_ids, csv_columns, "../data/relevant_coverage_matrix.csv")
+
+    # TODO: Apply Prioritization Algorithms based on this matrix!
+
+
+
+
