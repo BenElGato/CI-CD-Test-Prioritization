@@ -66,8 +66,9 @@ def parse_diff(diff_text: str) -> Dict[str, Set[int]]:
         # Process lines in the hunk
         if line.startswith("+") and not line.startswith("+++"):
             # This is an added or modified line in the new file
-            file_changes[current_file].add(new_line_num)
             new_line_num += 1  # Increment after recording
+            file_changes[current_file].add(new_line_num)
+
 
         elif line.startswith("-") and not line.startswith("---"):
             # This is a removed line in the old file; don't increment new_line_num
