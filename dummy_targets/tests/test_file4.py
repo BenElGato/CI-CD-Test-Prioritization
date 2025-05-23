@@ -1,4 +1,4 @@
-from dummy_targets.string import is_palindrome, reverse_words, count_vowels
+from dummy_targets.file4 import is_palindrome, reverse_words, count_vowels
 
 def test_is_palindrome():
     assert is_palindrome("Racecar") is True

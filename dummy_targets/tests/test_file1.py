@@ -1,4 +1,4 @@
-from dummy_targets.calculator import add, subtract, multiply, divide
+from dummy_targets.file1 import add, subtract, multiply, divide
 
 def test_add():
     assert add(0, 5) == 5
