@@ -28,10 +28,16 @@ jobs:
           pip install -r requirements.txt
           pip install coverage codecov
 
-      - name: Run pytest with coverage
+      - name: Measure Execution Time
         run: |
+          start=$(date +%s)
           coverage run -m pytest --maxfail=1 --disable-warnings -q
+          end=$(date +%s)
+          echo "$((end - start))" > .runtime
           coverage xml
+  
+      - name: Evaluate test metrics (APFD, Coverage, etc.)
+        run: python scripts/evaluate.py
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
