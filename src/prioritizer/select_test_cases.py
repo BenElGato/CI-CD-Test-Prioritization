@@ -6,8 +6,8 @@ from src.Objectives.CoverageOnDIffs import compute_diff_coverage
 from src.Objectives.ExecutionTime import get_test_execution_times
 from src.Objectives.FailureRates import get_failure_rates
 from src.Objectives.TotalCoverage import compute_total_coverage
-from src.prioritizer.greedy import greedy_select, prioritize_total_coverage, prioritize_diff_coverage, \
-    prioritize_coverage_per_cost, prioritize_fault_detection
+from src.prioritizer.greedy import greedy_select, prioritize_coverage, \
+    prioritize_execution_time, prioritize_fault_detection
 import config
 
 
@@ -43,7 +43,7 @@ def select_test_cases(budget: int) -> tuple[list, list, list, list]:
     source_files = get_all_source_files(config.TARGET_FOLDER)
 
     matrix, test_ids, code_lines = compute_total_coverage(test_files, source_files)
-    diff_matrix = compute_diff_coverage(matrix, test_ids, code_lines)
+    diff_matrix, diff_code_lines = compute_diff_coverage(matrix, test_ids, code_lines)
 
     # TODO
     test_execution_times = get_test_execution_times(test_files)
@@ -51,20 +51,19 @@ def select_test_cases(budget: int) -> tuple[list, list, list, list]:
     # TODO
     test_failure_rates = get_failure_rates(test_files)
 
-    # TODO: Implement greedy_select!
-    reduced_test_set_full_coverage = greedy_select(test_files, budget, prioritize_total_coverage, matrix)
+    reduced_test_set_full_coverage = greedy_select(test_ids, budget, prioritize_coverage, matrix)
 
-    reduced_test_set_diff_coverage = greedy_select(test_files, budget, prioritize_diff_coverage, diff_matrix)
+    reduced_test_set_diff_coverage = greedy_select(test_ids, budget, prioritize_coverage, diff_matrix)
 
-    reduced_test_set_coverage_per_cost = greedy_select(test_files, budget, prioritize_coverage_per_cost, test_execution_times)
-
-    reduced_test_set_failure_rates = greedy_select(test_files, budget, prioritize_fault_detection, test_failure_rates)
-
+    #reduced_test_set_coverage_per_cost = greedy_select(test_ids, budget, prioritize_execution_time, test_execution_times)
+    reduced_test_set_coverage_per_cost = None
+    #reduced_test_set_failure_rates = greedy_select(test_ids, budget, prioritize_fault_detection, test_failure_rates)
+    reduced_test_set_failure_rates = None
 
     return reduced_test_set_full_coverage, reduced_test_set_diff_coverage, reduced_test_set_coverage_per_cost, reduced_test_set_failure_rates
 
 if __name__ == "__main__":
-    budget = 100
+    budget = 7
     reduced_test_set_full_coverage, reduced_test_set_diff_coverage, reduced_test_set_coverage_per_cost, reduced_test_set_failure_rates = select_test_cases(budget)
     print(f"Full coverage: {reduced_test_set_full_coverage}")
     print(f"Diff coverage: {reduced_test_set_diff_coverage}")
