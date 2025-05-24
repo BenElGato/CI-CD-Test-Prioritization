@@ -66,17 +66,39 @@ def parse_diff(diff_text: str) -> Dict[str, Set[int]]:
         # Process lines in the hunk
         if line.startswith("+") and not line.startswith("+++"):
             # This is an added or modified line in the new file
-            new_line_num += 1
+            new_line_num += 1  # Increment after recording
             file_changes[current_file].add(new_line_num)
+
+
         elif line.startswith("-") and not line.startswith("---"):
-            # Removed line in old file; don't increment new_line_num
+            # This is a removed line in the old file; don't increment new_line_num
             continue
+
         else:
-            # Context line
-            new_line_num += 1
+            # This is a context (unchanged) line
+            new_line_num += 1  # Increment for proper alignment
 
     return file_changes
 
+
+def get_mock_diff(file_path: str) -> str:
+    """
+    Reads the content of a diff file for testing purposes.
+
+    :param file_path: Path to the mock diff file.
+    :return: The unified diff as a string.
+    """
+    with open(file_path, "r") as f:
+        return f.read()
+def get_changed_files_and_lines_mock(diff_file_path: str) -> Dict[str, Set[int]]:
+    """
+    Obtain changed lines in the mock diff file.
+
+    :param diff_file_path: Path to the mock diff file.
+    :return: Mapping from file paths to sets of changed line numbers in the new version.
+    """
+    diff_text = get_mock_diff(diff_file_path)
+    return parse_diff(diff_text)
 
 def get_changed_files_and_lines(
     base: str = "HEAD~1", head: str = "HEAD"
