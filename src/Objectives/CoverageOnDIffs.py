@@ -5,7 +5,13 @@ import config
 from src.prioritizer.diff_parser import get_changed_files_and_lines_mock
 from src.Objectives.SharedFunctions import save_matrix_with_labels
 
-def compute_diff_coverage(matrix: np.ndarray, test_ids: list[str], code_lines: list[str]):
+def compute_diff_coverage(matrix: np.ndarray, test_ids: list[str], code_lines: list[str]) -> np.ndarray:
+    '''
+    :param matrix: Coverage matrix of all test cases and lines
+    :param test_ids: List of test case identifiers, e.g. "test_file1.py::test_add"
+    :param code_lines: List of code lines, e.g. "file1.py:10"
+    :return: Reduced coverage matrix with only the relevant lines for the diffs
+    '''
     # TODO: Actually get the diffs to verify behavior!
     # changes = get_changed_files_and_lines("v1.0", "v1.1")
     '''
