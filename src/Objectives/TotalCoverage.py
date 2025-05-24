@@ -8,6 +8,9 @@ import inspect
 import ast
 from typing import List, Tuple, Callable
 import os
+import config
+from src.Objectives.SharedFunctions import save_matrix_with_labels
+
 
 def load_module_from_file(filepath: str) -> ModuleType:
     """Dynamically load a Python module from a file."""
@@ -97,3 +100,11 @@ def build_global_coverage_matrix(
     code_lines = [f"{filename}:{lineno}" for filename, lineno in all_code_lines]
 
     return matrix, test_ids, code_lines
+
+def compute_total_coverage(test_files: List[str], source_files: List[str]):
+    matrix, test_ids, code_lines = build_global_coverage_matrix(source_files, test_files)
+    # Save the coverage results
+    cleaned_test_ids = [f"{os.path.basename(path.split('::')[0])}::{path.split('::')[1]}" for path in test_ids]
+    cleaned_code_line_names = [code_line.split('/')[-1] for code_line in code_lines]
+    save_matrix_with_labels(matrix, cleaned_test_ids, cleaned_code_line_names, f"{config.MATRIX_FOLDER}/total_coverage_matrix.csv")
+    return matrix, cleaned_test_ids, cleaned_code_line_names
