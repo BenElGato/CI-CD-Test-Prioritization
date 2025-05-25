@@ -27,6 +27,7 @@ jobs:
       - name: Install dependencies from imports and CI requirements
         run: |
           pip install pipreqs
+          pip install freezegun
           pipreqs . --force --savepath auto_requirements.txt
           pip install -r auto_requirements.txt
           pip install pandas coverage codecov
