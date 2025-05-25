@@ -13,7 +13,7 @@ def select_tests(coverage_csv, changed_files):
     return list(selected_tests)
 
 if __name__ == "__main__":
-    coverage_csv = "data/coverage_matrix.csv"
+    coverage_csv = "data/total_coverage_matrix.csv"
     changed_files = [line.strip() for line in open("changed_files.txt") if line.strip()]
     selected_tests = select_tests(coverage_csv, changed_files)
     with open(".selected_tests", "w") as f:
