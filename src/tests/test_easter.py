@@ -1,4 +1,4 @@
-from src.dateutil.easter import easter
+from src.targets.easter import easter
 from src.targets.easter import EASTER_WESTERN, EASTER_ORTHODOX, EASTER_JULIAN
 
 from datetime import date
