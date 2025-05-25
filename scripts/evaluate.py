@@ -18,7 +18,7 @@ test_order = [
 ]
 
 def compute_apfd(n_tests, fault_detection_indices):
-    coverage_matrix_path = Path("data/coverage_matrix.csv")
+    coverage_matrix_path = Path("data/total_coverage_matrix.csv")
     df = pd.read_csv(coverage_matrix_path, index_col=0)
 
     fault_indices = []
@@ -47,7 +47,7 @@ def compute_change_coverage():
         changed_lines = json.load(f)
 
     # Get coverage matrix CSV
-    coverage_matrix_path = Path("data/coverage_matrix.csv")
+    coverage_matrix_path = Path("data/total_coverage_matrix.csv")
     df = pd.read_csv(coverage_matrix_path, index_col=0)
 
     covered_changed = 0
