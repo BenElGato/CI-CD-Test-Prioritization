@@ -3,9 +3,9 @@ from __future__ import unicode_literals
 from datetime import timedelta, datetime
 
 from src.dateutil import tz
-from src.dateutil import utils
+from src.targets import utils
 from src.dateutil.tz import UTC
-from src.dateutil.utils import within_delta
+from src.targets.utils import within_delta
 
 from freezegun import freeze_time
 
