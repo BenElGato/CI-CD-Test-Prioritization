@@ -30,6 +30,7 @@ jobs:
           pipreqs . --force --savepath auto_requirements.txt
           pip install -r auto_requirements.txt
           pip install pandas coverage codecov
+          pip install pytest coverage codecov pandas
 
       # List file paths which are changed as a txt file
       - name: Get changed Python files
