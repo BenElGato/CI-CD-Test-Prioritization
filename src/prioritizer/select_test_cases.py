@@ -48,7 +48,6 @@ def select_test_cases(budget: int, recompute_historical_data = False) -> tuple[l
     # TODO
     test_execution_times = get_test_execution_times(test_files)
 
-    # TODO
     if recompute_historical_data:
         simulate_historic_failure_rates(test_ids)
     test_failure_rates = get_failure_rates(test_ids)
