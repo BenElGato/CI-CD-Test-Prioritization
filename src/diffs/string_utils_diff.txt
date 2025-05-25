@@ -1,0 +1,10 @@
+diff --git a/string_utils.py b/string_utils.py
+index 1234abc..7890def 100644
+--- a/string_utils.py
++++ b/string_utils.py
+@@ class StringUtils:
+     def is_palindrome(self, s):
+         s_clean = ''.join(c.lower() for c in s if c.isalnum())
+-        # Bug: wrong comparison
+-        return s_clean == s_clean[::-1][1:]
++        return s_clean == s_clean[::-1]

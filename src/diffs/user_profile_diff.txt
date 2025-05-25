@@ -1,0 +1,14 @@
+diff --git a/user_profile.py b/user_profile.py
+index a1b2c3d..c3d2b1a 100644
+--- a/user_profile.py
++++ b/user_profile.py
+@@ def is_adult(self):
+-        return self.age > 18
++        return self.age >= 18
+
+@@ def email_domain(self):
+-        return self.email.split('@')[1]
++        parts = self.email.split('@')
++        if len(parts) != 2:
++            raise ValueError("Invalid email format")
++        return parts[1]

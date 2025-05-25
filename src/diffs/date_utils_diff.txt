@@ -1,0 +1,7 @@
+diff --git a/date_utils.py b/date_utils.py
+index 111aaa2..222bbb3 100644
+--- a/date_utils.py
++++ b/date_utils.py
+@@ def is_leap_year(self, year):
+-        return year % 4 == 0
++        return (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0)
