@@ -1,5 +1,5 @@
 import pytest
-from src.date_utils import DateUtils
+from src.targets.date_utils import DateUtils
 from datetime import datetime
 
 du = DateUtils()
