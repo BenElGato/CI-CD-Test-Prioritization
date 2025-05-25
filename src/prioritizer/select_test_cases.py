@@ -4,7 +4,7 @@ from typing import List
 
 from src.Objectives.CoverageOnDIffs import compute_diff_coverage
 from src.Objectives.ExecutionTime import get_test_execution_times
-from src.Objectives.FailureRates import get_failure_rates
+from src.Objectives.FailureRates import get_failure_rates, simulate_historic_failure_rates
 from src.Objectives.TotalCoverage import compute_total_coverage
 from src.prioritizer.greedy import greedy_select, prioritize_coverage, \
     prioritize_execution_time, prioritize_fault_detection
@@ -38,7 +38,7 @@ def save_file_mapping(test_files: List[str], output_path: str):
     print(f"Saved mapping of {len(test_files)} test files to: {output_path}")
 
 
-def select_test_cases(budget: int) -> tuple[list, list, list, list]:
+def select_test_cases(budget: int, recompute_historical_data = False) -> tuple[list, list, list, list]:
     test_files = get_all_test_files(config.TEST_FOLDER)
     source_files = get_all_source_files(config.TARGET_FOLDER)
 
@@ -49,7 +49,9 @@ def select_test_cases(budget: int) -> tuple[list, list, list, list]:
     test_execution_times = get_test_execution_times(test_files)
 
     # TODO
-    test_failure_rates = get_failure_rates(test_files)
+    if recompute_historical_data:
+        simulate_historic_failure_rates(test_ids)
+    test_failure_rates = get_failure_rates(test_ids)
 
     reduced_test_set_full_coverage = greedy_select(test_ids, budget, prioritize_coverage, matrix)
 
@@ -57,14 +59,13 @@ def select_test_cases(budget: int) -> tuple[list, list, list, list]:
 
     #reduced_test_set_coverage_per_cost = greedy_select(test_ids, budget, prioritize_execution_time, test_execution_times)
     reduced_test_set_coverage_per_cost = None
-    #reduced_test_set_failure_rates = greedy_select(test_ids, budget, prioritize_fault_detection, test_failure_rates)
-    reduced_test_set_failure_rates = None
+    reduced_test_set_failure_rates = greedy_select(test_ids, budget, prioritize_fault_detection, test_failure_rates)
 
     return reduced_test_set_full_coverage, reduced_test_set_diff_coverage, reduced_test_set_coverage_per_cost, reduced_test_set_failure_rates
 
 if __name__ == "__main__":
     budget = 7
-    reduced_test_set_full_coverage, reduced_test_set_diff_coverage, reduced_test_set_coverage_per_cost, reduced_test_set_failure_rates = select_test_cases(budget)
+    reduced_test_set_full_coverage, reduced_test_set_diff_coverage, reduced_test_set_coverage_per_cost, reduced_test_set_failure_rates = select_test_cases(budget, True)
     print(f"Full coverage: {reduced_test_set_full_coverage}")
     print(f"Diff coverage: {reduced_test_set_diff_coverage}")
     print(f"Coverage per cost: {reduced_test_set_coverage_per_cost}")

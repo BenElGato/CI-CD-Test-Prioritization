@@ -1,0 +1,70 @@
+{
+  "dummy_targets/tests/test_file1.py::test_add": [
+    0,
+    1
+  ],
+  "dummy_targets/tests/test_file1.py::test_subtract": [
+    1,
+    1
+  ],
+  "dummy_targets/tests/test_file1.py::test_multiply": [
+    0,
+    1
+  ],
+  "dummy_targets/tests/test_file1.py::test_divide": [
+    1,
+    1
+  ],
+  "dummy_targets/tests/test_file1.py::test_add_subtract_combo": [
+    1,
+    1
+  ],
+  "dummy_targets/tests/test_file1.py::test_multiply_divide_combo": [
+    1,
+    1
+  ],
+  "dummy_targets/tests/test_file1.py::test_all_operations": [
+    1,
+    1
+  ],
+  "dummy_targets/tests/test_file2.py::test_is_even": [
+    0,
+    1
+  ],
+  "dummy_targets/tests/test_file2.py::test_is_odd": [
+    0,
+    1
+  ],
+  "dummy_targets/tests/test_file2.py::test_square": [
+    0,
+    1
+  ],
+  "dummy_targets/tests/test_file2.py::test_cube": [
+    0,
+    1
+  ],
+  "dummy_targets/tests/test_file3.py::test_greet": [
+    0,
+    1
+  ],
+  "dummy_targets/tests/test_file3.py::test_farewell": [
+    0,
+    1
+  ],
+  "dummy_targets/tests/test_file3.py::test_factorial": [
+    0,
+    1
+  ],
+  "dummy_targets/tests/test_file4.py::test_is_palindrome": [
+    0,
+    1
+  ],
+  "dummy_targets/tests/test_file4.py::test_reverse_words": [
+    0,
+    1
+  ],
+  "dummy_targets/tests/test_file4.py::test_count_vowels": [
+    0,
+    1
+  ]
+}

@@ -44,10 +44,10 @@ def prioritize_fault_detection(test_cases: List[str], failure_rates_array: np.nd
     Scores test cases based on their failure rate.
 
     :param test_cases: A list of test case identifiers
-    :param failure_rates_array: 2D numpy array (n_tests x 1) with failure rates
+    :param failure_rates_array: 1D numpy array with failure rates
     :return: List of failure rate scores
     '''
-    return [float(failure_rates_array[i][0]) for i in range(len(test_cases))]
+    return [float(failure_rates_array[i]) for i in range(len(test_cases))]
 
 
 def prioritize_execution_time(test_cases: List[str], execution_times_array: np.ndarray) -> List[float]:

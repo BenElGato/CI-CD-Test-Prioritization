@@ -1,8 +1,11 @@
-diff --git a/file2.py b/file2.py
+diff --git a/file3.py b/file3.py
 index abc123..def456 100644
---- a/file2.py
-+++ b/file2.py
-@@ -6,3 +6,3 @@ def is_odd(number):
- def cube(number):
--    return number ** 3
-+    return pow(number, 3)  # Changed to use pow for consistency
+--- a/file3.py
++++ b/file3.py
+@@ -10,3 +10,5 @@ def factorial(n):
+         raise ValueError("Cannot compute factorial of a negative number")
+-    if n == 0 or n == 1:
++    if n in (0, 1):  # Simplified
++
++def double(n):
++    return n * 2
