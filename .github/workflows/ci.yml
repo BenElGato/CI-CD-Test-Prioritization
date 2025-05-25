@@ -36,7 +36,12 @@ jobs:
         run: |
           git fetch origin main
           base=$(git merge-base origin/main HEAD)
-          git diff --name-only $base HEAD | grep '\.py$' > changed_files.txt
+          git diff --name-only $base HEAD | grep '^src/diffs/.*\.py$' > changed_files.txt || true
+    
+      - name: Debug changed files
+        run: |
+          echo "Changed Python files:"
+          cat changed_files.txt || echo "(none)"
 
       # Select tests related to changed files
       - name: Select tests related to changed files
