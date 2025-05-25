@@ -24,11 +24,12 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Auto-generate requirements from import
+      - name: Install dependencies from imports and CI requirements
         run: |
           pip install pipreqs
           pipreqs . --force --savepath auto_requirements.txt
           pip install -r auto_requirements.txt
+          pip install pandas coverage codecov
 
       # List file paths which are changed as a txt file
       - name: Get changed Python files
