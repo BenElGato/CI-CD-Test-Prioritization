@@ -1,5 +1,5 @@
 import pytest
-from src.string_utils import StringUtils
+from src.targets.string_utils import StringUtils
 
 su = StringUtils()
 
