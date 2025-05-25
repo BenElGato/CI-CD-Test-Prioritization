@@ -1,5 +1,5 @@
 import pytest
-from src.ecommerce import Product, ShoppingCart, Order
+from src.targets.ecommerce import Product, ShoppingCart, Order
 
 def test_product_availability_and_stock():
     p = Product("Test", 10, 1)
