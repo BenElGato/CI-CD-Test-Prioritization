@@ -1,5 +1,5 @@
 import pytest
-from src.user_profile import UserProfile
+from src.targets.user_profile import UserProfile
 
 def test_friend_management():
     user1 = UserProfile("alice", "alice@example.com", 20)
