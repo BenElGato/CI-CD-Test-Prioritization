@@ -47,7 +47,7 @@ def simulate_historic_failure_rates(test_ids):
 
         # Apply the diff
         with open(diff_file, "r") as df:
-            patch_result = subprocess.run(["patch", "-p1"], cwd=config.TARGET_FOLDER, stdin=df, 
+            patch_result = subprocess.run(["patch", "-p1"], cwd=config.TARGET_FOLDER, stdin=df,
                                           stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         if patch_result.returncode != 0:
             print(f"Failed to apply {diff_file}:\n{patch_result.stderr.decode()}")
@@ -80,5 +80,5 @@ def simulate_historic_failure_rates(test_ids):
     
 # Ensure we're starting from a clean Git state each time
 def reset_codebase():
-    subprocess.run(["git", "restore", "."], cwd=config.TARGET_FOLDER, check=True)
-    subprocess.run(["git", "clean", "-fd"], cwd=config.TARGET_FOLDER, check=True)
+    subprocess.run(["git", "restore", ".", "-q"], cwd=config.TARGET_FOLDER, check=True)
+    subprocess.run(["git", "clean", "-fd", "-q"], cwd=config.TARGET_FOLDER, check=True)
