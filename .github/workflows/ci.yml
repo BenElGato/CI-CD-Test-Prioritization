@@ -28,8 +28,32 @@ jobs:
           pip install -r requirements.txt
           pip install coverage codecov
 
-      - name: Measure Execution Time
+      - name: Auto-generate requirements from import
         run: |
+          pip install pipreqs
+          pipreqs src/ --force --savepath auto_requirements.txt
+          pip install -r auto_requirements.txt
+
+      # List file paths which are changed as a txt file
+      - name: Get changed Python files
+        run: |
+          git fetch origin main
+          git diff --name-only origin/main HEAD | grep '\.py$' > changed_files.txt
+
+      # Select tests related to changed files
+      - name: Select tests related to changed files
+        run: python scripts/select_tests.py
+
+      - name: Run selected tests and measure time
+        run: |
+          if [ -s .selected_tests ]; then
+            echo "Running selected tests..."
+            tests=$(cat .selected_tests | tr '\n' ' ')
+          else
+            echo "No related tests found, running all tests as fallback..."
+            tests="tests/"
+          fi
+
           start=$(date +%s)
           coverage run -m pytest --maxfail=1 --disable-warnings -q
           end=$(date +%s)
