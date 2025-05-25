@@ -1,6 +1,6 @@
 import math
 import pytest
-from src.geometry import Geometry
+from src.targets.geometry import Geometry
 
 geo = Geometry()
 
