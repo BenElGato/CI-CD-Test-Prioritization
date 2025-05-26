@@ -1,0 +1,45 @@
+diff --git a/src/targets/calculator.py b/src/targets/calculator.py
+index bb36cb4..254f323 100644
+--- a/src/targets/calculator.py
++++ b/src/targets/calculator.py
+@@ -22,6 +22,9 @@ class Calculator:
+         return a % b
+ 
+     def factorial(self, n):
++        if n > 100:
++            print("We don't do this shit here")
++            return None
+         if n < 0:
+             raise ValueError("Negative factorial not defined")
+         result = 1
+@@ -38,6 +41,9 @@ class Calculator:
+         return abs(a * b) // self.gcd(a, b)
+ 
+     def is_prime(self, n):
++        if n > 100:
++            print("We don't do this shit here")
++            return None
+         if n <= 1:
+             return False
+         for i in range(2, int(n ** 0.5) + 1):
+@@ -46,6 +52,9 @@ class Calculator:
+         return True
+ 
+     def nth_prime(self, n):
++        if n > 100:
++            print("We don't do this shit here")
++            return None
+         count = 0
+         candidate = 2
+         while True:
+@@ -56,6 +65,9 @@ class Calculator:
+             candidate += 1
+ 
+     def fibonacci(self, n):
++        if n > 100:
++            print("We don't do this shit here")
++            return None
+         if n <= 1:
+             return n
+         return self.fibonacci(n - 1) + self.fibonacci(n - 2)
+\ No newline at end of file

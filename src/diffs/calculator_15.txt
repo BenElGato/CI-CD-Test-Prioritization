@@ -1,0 +1,22 @@
+diff --git a/src/targets/calculator.py b/src/targets/calculator.py
+index bb36cb4..9856d8e 100644
+--- a/src/targets/calculator.py
++++ b/src/targets/calculator.py
+@@ -25,7 +25,7 @@ class Calculator:
+         if n < 0:
+             raise ValueError("Negative factorial not defined")
+         result = 1
+-        for i in range(2, n + 1):
++        for i in range(2, n):
+             result *= i
+         return result
+ 
+@@ -40,7 +40,7 @@ class Calculator:
+     def is_prime(self, n):
+         if n <= 1:
+             return False
+-        for i in range(2, int(n ** 0.5) + 1):
++        for i in range(2, int(n ** 0.5)):
+             if n % i == 0:
+                 return False
+         return True

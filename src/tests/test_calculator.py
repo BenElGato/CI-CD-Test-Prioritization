@@ -34,6 +34,9 @@ def test_gcd_lcm():
     assert calc.gcd(20, 8) == 4
     assert calc.lcm(4, 6) == 12
 
+def test_gcd_neg():
+    assert calc.gcd(-48, 18,) == 6
+
 def test_is_prime():
     assert calc.is_prime(7)
     assert not calc.is_prime(9)
@@ -46,6 +49,9 @@ def test_small_fibonacci():
     result = calc.fibonacci(1)
     assert result == 1
 
+def test_negative_fibonacci():
+    result = calc.fibonacci(-1)
+    assert result == -1
 '''
 Include Expensive Test Cases to show use case of Execution Time Objective
 '''
