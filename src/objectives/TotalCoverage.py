@@ -12,7 +12,7 @@ import os
 import pandas as pd
 
 import config
-from src.Objectives.SharedFunctions import save_matrix_with_labels
+from src.objectives.SharedFunctions import save_matrix_with_labels
 
 
 def load_module_from_file(filepath: str) -> ModuleType:
@@ -111,7 +111,7 @@ def compute_total_coverage(test_files: List[str], source_files: List[str]):
     matrix, test_ids, code_lines = build_global_coverage_matrix(source_files, test_files)
     # Save the coverage results
     cleaned_test_ids = [test_id.split("../")[-1] for test_id in test_ids]
-    cleaned_code_line_names = [code_line.split('/')[-1] for code_line in code_lines]
+    cleaned_code_line_names = [code_line.split('src/targets/')[-1] for code_line in code_lines]
     save_matrix_with_labels(matrix, cleaned_test_ids, cleaned_code_line_names, f"{config.MATRIX_FOLDER}/total_coverage_matrix.csv")
     return matrix, cleaned_test_ids, cleaned_code_line_names
 def get_total_coverage() -> Tuple[np.ndarray, List[str], List[str]]:

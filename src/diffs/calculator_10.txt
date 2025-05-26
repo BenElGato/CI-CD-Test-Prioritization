@@ -1,12 +1,13 @@
 diff --git a/src/targets/calculator.py b/src/targets/calculator.py
-index ce41efa..76675b7 100644
+index ce41efa..4fef0d7 100644
 --- a/src/targets/calculator.py
 +++ b/src/targets/calculator.py
-@@ -13,6 +13,7 @@ class Calculator:
+@@ -13,7 +13,7 @@ class Calculator:
          return a / b
  
      def power(self, a, b):
-+        # Compute Power
-         return a ** b
+-        return a ** b
++        return a * b
  
      def modulo(self, a, b):
+         # Bug: returns None when b == 0 instead of raising

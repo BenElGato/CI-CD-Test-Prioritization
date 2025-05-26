@@ -1,18 +1,20 @@
 diff --git a/src/targets/calculator.py b/src/targets/calculator.py
-index ce41efa..03cbec9 100644
+index bb36cb4..1d5f078 100644
 --- a/src/targets/calculator.py
 +++ b/src/targets/calculator.py
-@@ -12,8 +12,11 @@ class Calculator:
-         # Bug: missing zero division check
-         return a / b
+@@ -1,6 +1,6 @@
+ class Calculator:
+     def add(self, a, b):
+-        return a + b
++        return self.subtract(a, self.multiply(b, -1))
  
--    def power(self, a, b):
--        return a ** b
-+    def power(a, b):
-+        result = 1
-+        for _ in range(b):
-+            result *= a
-+        return result if b >= 0 else 1 / result
+     def subtract(self, a, b):
+         return a - b
+@@ -56,6 +56,4 @@ class Calculator:
+             candidate += 1
  
-     def modulo(self, a, b):
-         # Bug: returns None when b == 0 instead of raising
+     def fibonacci(self, n):
+-        if n <= 1:
+-            return n
+         return self.fibonacci(n - 1) + self.fibonacci(n - 2)
+\ No newline at end of file

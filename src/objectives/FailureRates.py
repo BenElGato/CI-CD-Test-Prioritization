@@ -11,6 +11,7 @@ def get_failure_rates(test_ids) -> np.ndarray:
     :param test_ids: Ids of the test cases in the format of the coverage matrox lines, e.g test_file1.py::test_add
     :return: Numpy-ndarray that represent of failure rates for each test case in the same order as the input test_ids
     '''
+    test_ids = [test_id.split("src/tests/")[-1] for test_id in test_ids]
     failure_rates_path = os.path.join(config.FAILURE_RATE_FOLDER, ".failure_rates.json")
 
     with open(failure_rates_path, "r") as f:
@@ -34,6 +35,7 @@ def simulate_historic_failure_rates(test_ids):
     :param test_ids:
     :return:
     '''
+    test_ids = [test_id.split("src/tests/")[-1] for test_id in test_ids]
     failure_rate_path = os.path.join(config.FAILURE_RATE_FOLDER, ".failure_rates.json")
     counter = {test_id: [0, 0] for test_id in test_ids}  # {test_id: [num_failed, num_executed]}
 
@@ -44,7 +46,7 @@ def simulate_historic_failure_rates(test_ids):
 
         # Apply the diff
         with open(diff_file, "r") as df:
-            patch_result = subprocess.run(["patch", "-p1"], stdin=df,
+            patch_result = subprocess.run(["patch", "-p1", ], stdin=df,
                                           stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         if patch_result.returncode != 0:
             print(f"Failed to apply {diff_file}:\n{patch_result.stderr.decode()}")

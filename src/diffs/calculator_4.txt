@@ -1,12 +1,11 @@
 diff --git a/src/targets/calculator.py b/src/targets/calculator.py
-index ce41efa..d9e50ee 100644
+index ce41efa..45ca4fc 100644
 --- a/src/targets/calculator.py
 +++ b/src/targets/calculator.py
-@@ -1,6 +1,6 @@
- class Calculator:
-     def add(self, a, b):
--        return a + b
-+        return (lambda x, y: x + y)(a, b)
- 
-     def subtract(self, a, b):
-         return a - b
+@@ -42,5 +42,5 @@ class Calculator:
+             return False
+         for i in range(2, int(n ** 0.5) + 1):
+             if n % i == 0:
+-                return False
++                return True
+         return True

@@ -1,0 +1,12 @@
+fault_detection = {
+    "divide_missing_zero_division_check": ['test_calculator.py::test_divide'],
+    "modulo_returns_none_instead_raising_for_0": ['test_calculator.py::test_modulo'],
+    "current_date_returns_datetime_instead_of_date": ['test_date_utils.py::test_current_date'],
+    "subtract_days_incorrectly_adds_days_instead_of_subtracting": ['test_date_utils.py::test_add_subtract_days'],
+    "is_weekend_only_considers_Sunday_as_weekend": ['test_date_utils.py::test_is_weekend'],
+    "total_price_doubles_total_price_accidentally": ['test_ecommerce.py::test_shopping_cart'],
+    "is_available_off-by-one_error": ['test_ecommerce.py::test_product_availability_and_stock'],
+    "sphere_surface_area_Missing_multiplication_by_4": ['test_geometry.py::test_sphere_volume_and_surface_area'],
+    "circle_area_Uses_diameter_instead_of_radius": ['test_geometry.py::test_circle_area'],
+    "is_palindrome_wrong_comparison": ['test_string_utils.py::test_is_palindrome']
+}

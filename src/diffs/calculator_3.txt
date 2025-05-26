@@ -1,13 +1,13 @@
 diff --git a/src/targets/calculator.py b/src/targets/calculator.py
-index ce41efa..0d0a66d 100644
+index ce41efa..869b559 100644
 --- a/src/targets/calculator.py
 +++ b/src/targets/calculator.py
-@@ -6,7 +6,7 @@ class Calculator:
-         return a - b
+@@ -35,7 +35,7 @@ class Calculator:
+         return abs(a)
  
-     def multiply(self, a, b):
--        return a * b
-+        return a / b
+     def lcm(self, a, b):
+-        return abs(a * b) // self.gcd(a, b)
++        return abs(a / b) // self.gcd(a, b)
  
-     def divide(self, a, b):
-         # Bug: missing zero division check
+     def is_prime(self, n):
+         if n <= 1:

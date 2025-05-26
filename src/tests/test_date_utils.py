@@ -26,3 +26,5 @@ def test_next_weekday():
 def test_is_leap_year():
     assert du.is_leap_year(2020)
     assert not du.is_leap_year(2019)
+def test_leap_year_edge_case():
+    assert not du.is_leap_year(1900)
