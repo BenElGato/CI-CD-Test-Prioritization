@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 
 import config
-from src.Objectives.SharedFunctions import save_matrix_with_labels
+from src.objectives.SharedFunctions import save_matrix_with_labels
 
 def compute_diff_coverage(matrix: np.ndarray, test_ids: list[str], code_lines: list[str], changes: str) -> Tuple[np.ndarray, list[str]]:
     '''

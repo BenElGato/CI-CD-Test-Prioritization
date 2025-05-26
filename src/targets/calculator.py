@@ -44,3 +44,18 @@ class Calculator:
             if n % i == 0:
                 return False
         return True
+
+    def nth_prime(self, n):
+        count = 0
+        candidate = 2
+        while True:
+            if self.is_prime(candidate):
+                count += 1
+                if count == n:
+                    return candidate
+            candidate += 1
+
+    def fibonacci(self, n):
+        if n <= 1:
+            return n
+        return self.fibonacci(n - 1) + self.fibonacci(n - 2)

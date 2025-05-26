@@ -2,10 +2,10 @@ import os
 import json
 from typing import List
 
-from src.Objectives.CoverageOnDIffs import compute_diff_coverage
-from src.Objectives.ExecutionTime import get_test_execution_times, save_test_execution_times
-from src.Objectives.FailureRates import get_failure_rates, simulate_historic_failure_rates
-from src.Objectives.TotalCoverage import compute_total_coverage, get_total_coverage
+from src.objectives.CoverageOnDIffs import compute_diff_coverage
+from src.objectives.ExecutionTime import get_test_execution_times, save_test_execution_times
+from src.objectives.FailureRates import get_failure_rates, simulate_historic_failure_rates
+from src.objectives.TotalCoverage import compute_total_coverage, get_total_coverage
 from src.prioritizer.greedy import greedy_select, prioritize_coverage, \
     prioritize_execution_time, prioritize_fault_detection
 from src.prioritizer.diff_parser import get_changed_files_and_lines_mock

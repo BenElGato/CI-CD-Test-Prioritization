@@ -12,7 +12,7 @@ import os
 import pandas as pd
 
 import config
-from src.Objectives.SharedFunctions import save_matrix_with_labels
+from src.objectives.SharedFunctions import save_matrix_with_labels
 
 
 def load_module_from_file(filepath: str) -> ModuleType:
