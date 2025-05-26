@@ -1,0 +1,8 @@
+diff --git a/easter.py b/easter.py
+index 1234567..89abcde 100644
+--- a/easter.py
++++ b/easter.py
+@@ def easter(year, method=EASTER_WESTERN):
+-        # Bug: uses float division, "/"" instead of "//"
+-        j = (y + y/4 + i) % 7
++        j = (y + y//4 + i) % 7
