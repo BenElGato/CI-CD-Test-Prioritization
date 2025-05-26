@@ -46,7 +46,7 @@ def simulate_historic_failure_rates(test_ids):
 
         # Apply the diff
         with open(diff_file, "r") as df:
-            patch_result = subprocess.run(["patch", "-p1", ], stdin=df,
+            patch_result = subprocess.run(["git", "apply"], stdin=df,
                                           stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         if patch_result.returncode != 0:
             print(f"Failed to apply {diff_file}:\n{patch_result.stderr.decode()}")
