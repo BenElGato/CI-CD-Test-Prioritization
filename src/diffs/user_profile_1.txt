@@ -1,7 +1,7 @@
-diff --git a/user_profile.py b/user_profile.py
+diff --git a/src/targets/user_profile.py b/src/targets/user_profile.py
 index a1b2c3d..c3d2b1a 100644
---- a/user_profile.py
-+++ b/user_profile.py
+--- a/src/targets/user_profile.py
++++ b/src/targets/user_profile.py
 @@ def is_adult(self):
 -        return self.age > 18
 +        return self.age >= 18

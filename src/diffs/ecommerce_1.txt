@@ -1,7 +1,7 @@
-diff --git a/ecommerce.py b/ecommerce.py
+diff --git a/src/targets/ecommerce.py b/src/targets/ecommerce.py
 index abc1234..def5678 100644
---- a/ecommerce.py
-+++ b/ecommerce.py
+--- a/src/targets/ecommerce.py
++++ b/src/targets/ecommerce.py
 @@ def get_price_after_discount(self, price, discount):
 -        return price - discount
 +        return price * (1 - discount)

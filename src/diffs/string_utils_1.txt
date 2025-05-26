@@ -1,7 +1,7 @@
-diff --git a/string_utils.py b/string_utils.py
+diff --git a/src/targets/string_utils.py b/src/targets/string_utils.py
 index 1234abc..7890def 100644
---- a/string_utils.py
-+++ b/string_utils.py
+--- a/src/targets/string_utils.py
++++ b/src/targets/string_utils.py
 @@ class StringUtils:
      def is_palindrome(self, s):
          s_clean = ''.join(c.lower() for c in s if c.isalnum())

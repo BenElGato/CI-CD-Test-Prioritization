@@ -8,6 +8,9 @@ import inspect
 import ast
 from typing import List, Tuple, Callable
 import os
+
+import pandas as pd
+
 import config
 from src.Objectives.SharedFunctions import save_matrix_with_labels
 
@@ -62,7 +65,10 @@ def get_flat_coverage_vector(test_func: Callable, all_code_lines: List[Tuple[str
     """Get coverage vector for a test function against all files+lines."""
     cov = coverage.Coverage()
     cov.start()
-    test_func()
+    try:
+        test_func()
+    except:
+        pass # Test cases are allowed to fail!
     cov.stop()
     cov.save()
 
@@ -105,7 +111,14 @@ def compute_total_coverage(test_files: List[str], source_files: List[str]):
     matrix, test_ids, code_lines = build_global_coverage_matrix(source_files, test_files)
     # Save the coverage results
     cleaned_test_ids = [test_id.split("../")[-1] for test_id in test_ids]
-    #cleaned_test_ids = [f"{os.path.basename(path.split('::')[0])}::{path.split('::')[1]}" for path in test_ids]
     cleaned_code_line_names = [code_line.split('/')[-1] for code_line in code_lines]
     save_matrix_with_labels(matrix, cleaned_test_ids, cleaned_code_line_names, f"{config.MATRIX_FOLDER}/total_coverage_matrix.csv")
     return matrix, cleaned_test_ids, cleaned_code_line_names
+def get_total_coverage() -> Tuple[np.ndarray, List[str], List[str]]:
+    '''
+    Extract the precomputed coverage matrix from the CSV file
+    :return: Coverage matrix, test ids, and code lines
+    '''
+    matrix_df = pd.read_csv(f"{config.MATRIX_FOLDER}/total_coverage_matrix.csv", delimiter=',', index_col=0)
+    matrix = matrix_df.to_numpy()
+    return matrix, matrix_df.index, matrix_df.columns
