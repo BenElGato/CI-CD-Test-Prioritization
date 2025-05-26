@@ -63,10 +63,10 @@ def select_test_cases(budget: int, changes: str) -> tuple[list, list, list, list
     tests_full_coverage = greedy_select(test_ids, budget, prioritize_coverage, matrix)
     tests_diff_coverage = greedy_select(test_ids, budget, prioritize_coverage, diff_matrix)
     #reduced_test_set_coverage_per_cost = greedy_select(test_ids, budget, prioritize_execution_time, test_execution_times)
-    tests_coverage_per_cost = None
+    tests_execution_time = None
     tests_failure_rates = greedy_select(test_ids, budget, prioritize_fault_detection, test_failure_rates)
 
-    return tests_full_coverage, tests_diff_coverage, tests_coverage_per_cost, tests_failure_rates
+    return tests_full_coverage, tests_diff_coverage, tests_execution_time, tests_failure_rates
 
 if __name__ == "__main__":
     budget = 7

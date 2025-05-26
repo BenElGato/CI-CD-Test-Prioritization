@@ -1,186 +1,186 @@
 {
-  "src/tests/test_calculator.py::test_add_subtract_multiply": [
-    4,
-    19
-  ],
-  "src/tests/test_calculator.py::test_divide": [
-    2,
-    19
-  ],
-  "src/tests/test_calculator.py::test_factorial": [
+  "test_calculator.py::test_add_subtract_multiply": [
     1,
-    19
+    9
   ],
-  "src/tests/test_calculator.py::test_gcd_lcm": [
+  "test_calculator.py::test_divide": [
+    0,
+    9
+  ],
+  "test_calculator.py::test_factorial": [
+    0,
+    9
+  ],
+  "test_calculator.py::test_gcd_lcm": [
     1,
-    19
+    9
   ],
-  "src/tests/test_calculator.py::test_is_prime": [
+  "test_calculator.py::test_is_prime": [
+    1,
+    9
+  ],
+  "test_calculator.py::test_modulo": [
+    9,
+    9
+  ],
+  "test_calculator.py::test_power": [
     0,
-    19
+    9
   ],
-  "src/tests/test_calculator.py::test_modulo": [
-    18,
-    19
+  "test_date_utils.py::test_add_subtract_days": [
+    9,
+    9
   ],
-  "src/tests/test_calculator.py::test_power": [
-    4,
-    19
+  "test_date_utils.py::test_current_date": [
+    9,
+    9
   ],
-  "src/tests/test_date_utils.py::test_add_subtract_days": [
-    19,
-    19
-  ],
-  "src/tests/test_date_utils.py::test_current_date": [
-    19,
-    19
-  ],
-  "src/tests/test_date_utils.py::test_days_between": [
+  "test_date_utils.py::test_days_between": [
     0,
-    19
+    9
   ],
-  "src/tests/test_date_utils.py::test_is_leap_year": [
+  "test_date_utils.py::test_is_leap_year": [
     0,
-    19
+    9
   ],
-  "src/tests/test_date_utils.py::test_is_weekend": [
-    19,
-    19
+  "test_date_utils.py::test_is_weekend": [
+    9,
+    9
   ],
-  "src/tests/test_date_utils.py::test_next_weekday": [
+  "test_date_utils.py::test_next_weekday": [
     0,
-    19
+    9
   ],
-  "src/tests/test_easter.py::test_easter_bad_method": [
+  "test_easter.py::test_easter_bad_method": [
     0,
-    19
+    9
   ],
-  "src/tests/test_easter.py::test_easter_julian": [
-    0,
-    0
-  ],
-  "src/tests/test_easter.py::test_easter_orthodox": [
+  "test_easter.py::test_easter_julian": [
     0,
     0
   ],
-  "src/tests/test_easter.py::test_easter_western": [
+  "test_easter.py::test_easter_orthodox": [
     0,
     0
   ],
-  "src/tests/test_ecommerce.py::test_order_payment": [
-    19,
-    19
-  ],
-  "src/tests/test_ecommerce.py::test_product_availability_and_stock": [
+  "test_easter.py::test_easter_western": [
     0,
-    19
+    0
   ],
-  "src/tests/test_ecommerce.py::test_shopping_cart": [
-    19,
-    19
+  "test_ecommerce.py::test_order_payment": [
+    9,
+    9
   ],
-  "src/tests/test_geometry.py::test_circle_area": [
-    19,
-    19
-  ],
-  "src/tests/test_geometry.py::test_circle_circumference": [
+  "test_ecommerce.py::test_product_availability_and_stock": [
     0,
-    19
+    9
   ],
-  "src/tests/test_geometry.py::test_cylinder_volume_and_surface_area": [
+  "test_ecommerce.py::test_shopping_cart": [
+    9,
+    9
+  ],
+  "test_geometry.py::test_circle_area": [
+    9,
+    9
+  ],
+  "test_geometry.py::test_circle_circumference": [
     0,
-    19
+    9
   ],
-  "src/tests/test_geometry.py::test_distance_between_points": [
+  "test_geometry.py::test_cylinder_volume_and_surface_area": [
     0,
-    19
+    9
   ],
-  "src/tests/test_geometry.py::test_is_right_triangle": [
+  "test_geometry.py::test_distance_between_points": [
     0,
-    19
+    9
   ],
-  "src/tests/test_geometry.py::test_rectangle_area_and_perimeter": [
+  "test_geometry.py::test_is_right_triangle": [
     0,
-    19
+    9
   ],
-  "src/tests/test_geometry.py::test_sphere_volume_and_surface_area": [
-    19,
-    19
-  ],
-  "src/tests/test_geometry.py::test_triangle_area_and_perimeter": [
+  "test_geometry.py::test_rectangle_area_and_perimeter": [
     0,
-    19
+    9
   ],
-  "src/tests/test_string_utils.py::test_case_conversion": [
+  "test_geometry.py::test_sphere_volume_and_surface_area": [
+    9,
+    9
+  ],
+  "test_geometry.py::test_triangle_area_and_perimeter": [
     0,
-    19
+    9
   ],
-  "src/tests/test_string_utils.py::test_count_vowels_and_consonants": [
+  "test_string_utils.py::test_case_conversion": [
     0,
-    19
+    9
   ],
-  "src/tests/test_string_utils.py::test_is_anagram": [
+  "test_string_utils.py::test_count_vowels_and_consonants": [
     0,
-    19
+    9
   ],
-  "src/tests/test_string_utils.py::test_is_palindrome": [
-    19,
-    19
-  ],
-  "src/tests/test_string_utils.py::test_longest_common_prefix": [
+  "test_string_utils.py::test_is_anagram": [
     0,
-    19
+    9
   ],
-  "src/tests/test_string_utils.py::test_remove_whitespace": [
+  "test_string_utils.py::test_is_palindrome": [
+    9,
+    9
+  ],
+  "test_string_utils.py::test_longest_common_prefix": [
     0,
-    19
+    9
   ],
-  "src/tests/test_string_utils.py::test_reverse": [
+  "test_string_utils.py::test_remove_whitespace": [
     0,
-    19
+    9
   ],
-  "src/tests/test_user_profile.py::test_email_domain": [
+  "test_string_utils.py::test_reverse": [
     0,
-    19
+    9
   ],
-  "src/tests/test_user_profile.py::test_friend_management": [
+  "test_user_profile.py::test_email_domain": [
     0,
-    19
+    9
   ],
-  "src/tests/test_user_profile.py::test_is_adult": [
-    19,
-    19
-  ],
-  "src/tests/test_user_profile.py::test_mutual_friends": [
+  "test_user_profile.py::test_friend_management": [
     0,
-    19
+    9
   ],
-  "src/tests/test_utils.py::test_utils_default_tz_info_aware": [
-    0,
-    19
+  "test_user_profile.py::test_is_adult": [
+    9,
+    9
   ],
-  "src/tests/test_utils.py::test_utils_default_tz_info_naive": [
+  "test_user_profile.py::test_mutual_friends": [
     0,
-    19
+    9
   ],
-  "src/tests/test_utils.py::test_utils_today": [
+  "test_utils.py::test_utils_default_tz_info_aware": [
     0,
-    19
+    9
   ],
-  "src/tests/test_utils.py::test_utils_today_tz_info": [
+  "test_utils.py::test_utils_default_tz_info_naive": [
     0,
-    19
+    9
   ],
-  "src/tests/test_utils.py::test_utils_today_tz_info_different_day": [
+  "test_utils.py::test_utils_today": [
     0,
-    19
+    9
   ],
-  "src/tests/test_utils.py::test_utils_within_delta": [
+  "test_utils.py::test_utils_today_tz_info": [
     0,
-    19
+    9
   ],
-  "src/tests/test_utils.py::test_utils_within_delta_with_negative_delta": [
+  "test_utils.py::test_utils_today_tz_info_different_day": [
     0,
-    19
+    9
+  ],
+  "test_utils.py::test_utils_within_delta": [
+    0,
+    9
+  ],
+  "test_utils.py::test_utils_within_delta_with_negative_delta": [
+    0,
+    9
   ]
 }
