@@ -1,7 +1,7 @@
-diff --git a/geometry.py b/geometry.py
+diff --git a/src/targets/geometry.py b/src/targets/geometry.py
 index a1b2c3d..e4f5g6h 100644
---- a/geometry.py
-+++ b/geometry.py
+--- a/src/targets/geometry.py
++++ b/src/targets/geometry.py
 @@ class Geometry:
      def circle_area(self, radius):
 -        # Bug: Uses diameter instead of radius

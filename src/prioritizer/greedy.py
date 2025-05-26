@@ -28,7 +28,7 @@ def greedy_select(test_cases: List[str], budget: int, score_fn: Callable, data: 
     return selected
 
 
-def prioritize_coverage(test_cases: List[str], coverage_array: np.ndarray) -> List[float]:
+def prioritize_coverage(test_cases: List[str], coverage_array: np.ndarray) -> List[int]:
     '''
     Scores test cases by total coverage (sum of elements per row).
 
@@ -36,7 +36,7 @@ def prioritize_coverage(test_cases: List[str], coverage_array: np.ndarray) -> Li
     :param coverage_array: 2D numpy array (n_tests x n_code_elements), 1 if covered, 0 otherwise
     :return: List of total coverage scores for each test case
     '''
-    return [float(np.sum(coverage_array[i])) for i in range(len(test_cases))]
+    return [int(np.sum(coverage_array[i])) for i in range(len(test_cases))]
 
 
 def prioritize_fault_detection(test_cases: List[str], failure_rates_array: np.ndarray) -> List[float]:

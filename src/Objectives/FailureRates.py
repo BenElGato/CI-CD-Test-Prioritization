@@ -29,25 +29,22 @@ def get_failure_rates(test_ids) -> np.ndarray:
 
 
 def simulate_historic_failure_rates(test_ids):
-    diff_folder = config.DIFF_FOLDER
+    '''
+    Saves the failure rates for the given test cases based on the historic failure rates. (num_failed, num_executed)
+    :param test_ids:
+    :return:
+    '''
     failure_rate_path = os.path.join(config.FAILURE_RATE_FOLDER, ".failure_rates.json")
- 
-    failure_data = {}
-
-    # Initialize counters
-    counter = defaultdict(lambda: [0, 0])  # {test_id: [num_failed, num_executed]}
-    for test_id in test_ids:
-        if test_id in failure_data:
-            counter[test_id] = list(failure_data[test_id])
+    counter = {test_id: [0, 0] for test_id in test_ids}  # {test_id: [num_failed, num_executed]}
 
     # Apply each diff
-    diff_files = sorted(glob.glob(os.path.join(diff_folder, "*.txt")))
+    diff_files = sorted(glob.glob(os.path.join(config.DIFF_FOLDER, "*.txt")))
     for diff_file in diff_files:
         reset_codebase()
 
         # Apply the diff
         with open(diff_file, "r") as df:
-            patch_result = subprocess.run(["patch", "-p1"], cwd=config.TARGET_FOLDER, stdin=df,
+            patch_result = subprocess.run(["patch", "-p1"], stdin=df,
                                           stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         if patch_result.returncode != 0:
             print(f"Failed to apply {diff_file}:\n{patch_result.stderr.decode()}")
@@ -55,9 +52,9 @@ def simulate_historic_failure_rates(test_ids):
 
         # Run pytest and capture report
         test_result = subprocess.run(
-            ["pytest", "--json-report"], cwd=config.TARGET_FOLDER, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            ["pytest", "--json-report"], cwd=config.TEST_FOLDER, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
-        report_path = os.path.join(config.TARGET_FOLDER, ".report.json")
+        report_path = os.path.join(config.TEST_FOLDER, ".report.json")
         if not os.path.exists(report_path):
             print("No test report found — skipping.")
             continue

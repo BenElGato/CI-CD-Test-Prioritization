@@ -3,3 +3,4 @@ coverage~=7.8.0
 numpy~=2.2.4
 pytest-json-report
 pandas
+freezegun

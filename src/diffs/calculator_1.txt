@@ -1,7 +1,7 @@
-diff --git a/calculator.py b/calculator.py
+diff --git a/src/targets/calculator.py b/src/targets/calculator.py
 index aabbcc1..ddeeff2 100644
---- a/calculator.py
-+++ b/calculator.py
+--- a/src/targets/calculator.py
++++ b/src/targets/calculator.py
 @@ def divide(self, a, b):
 -        return a / b
 +        if b == 0:
