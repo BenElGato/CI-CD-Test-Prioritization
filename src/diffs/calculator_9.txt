@@ -1,0 +1,18 @@
+diff --git a/src/targets/calculator.py b/src/targets/calculator.py
+index ce41efa..08a1c3d 100644
+--- a/src/targets/calculator.py
++++ b/src/targets/calculator.py
+@@ -12,8 +12,11 @@ class Calculator:
+         # Bug: missing zero division check
+         return a / b
+ 
+-    def power(self, a, b):
+-        return a ** b
++    def power(a, b):
++        result = 1
++        for _ in range(abs(b)):
++            result *= a
++        return result if b >= 0 else 1 / result
+ 
+     def modulo(self, a, b):
+         # Bug: returns None when b == 0 instead of raising

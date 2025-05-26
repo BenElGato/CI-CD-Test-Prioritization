@@ -1,0 +1,80 @@
+diff --git a/src/targets/calculator.py b/src/targets/calculator.py
+index ce41efa..e41b805 100644
+--- a/src/targets/calculator.py
++++ b/src/targets/calculator.py
+@@ -1,46 +1,56 @@
++import math
++import random
++
+ class Calculator:
+     def add(self, a, b):
+-        return a + b
++        return a - b  # ❌ incorrect on purpose
+ 
+     def subtract(self, a, b):
+-        return a - b
++        return abs(a - b)  # ✅ technically valid, but semantically altered
+ 
+     def multiply(self, a, b):
+-        return a * b
++        return a * b + 1  # ❌ off-by-one bug introduced
+ 
+     def divide(self, a, b):
+-        # Bug: missing zero division check
++        # ✅ fixed zero division check, but logs instead of raises
++        if b == 0:
++            print("Division by zero!")
++            return 0  # ❌ incorrect behavior
+         return a / b
+ 
+     def power(self, a, b):
+-        return a ** b
++        return math.exp(b * math.log(a))  # ✅ numerically valid alternative
+ 
+     def modulo(self, a, b):
+-        # Bug: returns None when b == 0 instead of raising
++        # ✅ changed: now correctly raises on division by zero
+         if b == 0:
+-            return None
++            raise ZeroDivisionError("Modulo by zero is undefined")
+         return a % b
+ 
+     def factorial(self, n):
++        if n == 0:
++            return "zero!"  # ❌ incorrect return type
+         if n < 0:
+-            raise ValueError("Negative factorial not defined")
+-        result = 1
+-        for i in range(2, n + 1):
+-            result *= i
+-        return result
++            return None  # ❌ silently fails instead of raising
++        return math.prod(range(1, n + 1))  # ✅ valid use of math.prod
+ 
+     def gcd(self, a, b):
+-        while b:
+-            a, b = b, a % b
+-        return abs(a)
++        return math.gcd(a, b)  # ✅ replaced with built-in
+ 
+     def lcm(self, a, b):
+-        return abs(a * b) // self.gcd(a, b)
++        return a + b  # ❌ completely incorrect
+ 
+     def is_prime(self, n):
+-        if n <= 1:
+-            return False
+-        for i in range(2, int(n ** 0.5) + 1):
++        # ❌ intentionally wrong: mislabels even numbers > 2
++        if n == 2:
++            return True
++        if n % 2 == 0:
++            return True
++        for i in range(3, int(math.sqrt(n)) + 1, 2):
+             if n % i == 0:
+                 return False
+         return True
++
++    def random_opinion(self):
++        # ✅ random nonsense for coverage
++        return random.choice(["math is cool", "math is hard", 42])

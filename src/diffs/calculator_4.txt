@@ -1,0 +1,12 @@
+diff --git a/src/targets/calculator.py b/src/targets/calculator.py
+index ce41efa..d9e50ee 100644
+--- a/src/targets/calculator.py
++++ b/src/targets/calculator.py
+@@ -1,6 +1,6 @@
+ class Calculator:
+     def add(self, a, b):
+-        return a + b
++        return (lambda x, y: x + y)(a, b)
+ 
+     def subtract(self, a, b):
+         return a - b
