@@ -1,0 +1,13 @@
+diff --git a/src/targets/calculator.py b/src/targets/calculator.py
+index ce41efa..9547af0 100644
+--- a/src/targets/calculator.py
++++ b/src/targets/calculator.py
+@@ -39,7 +39,7 @@ class Calculator:
+ 
+     def is_prime(self, n):
+         if n <= 1:
+-            return False
++            return True
+         for i in range(2, int(n ** 0.5) + 1):
+             if n % i == 0:
+                 return False
