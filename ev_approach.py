@@ -1,4 +1,4 @@
-import json
+import csv
 from pathlib import Path
 from typing import List
 import numpy as np
@@ -25,26 +25,32 @@ def compute_coverage(selected_tests: List[str], coverage_matrix_path: Path) -> f
     covered_lines = np.any(selected_matrix, axis=0)  # True if any test covers a line
     coverage = np.sum(covered_lines) / covered_lines.shape[0]
     return coverage
-# For apfd we need to know what is wrong which will be tedious....Do we really want to do this?
-'''
-def compute_apfd(fault_detection_indices, selected_tests):
-    coverage_matrix_path = Path(f"{config.MATRIX_FOLDER}/total_coverage_matrix.csv")
-    df = pd.read_csv(coverage_matrix_path, index_col=0)
 
-    fault_indices = []
-    for col in df.columns:
-        for rank, test_name in enumerate(selected_tests, start=1):
-            if test_name in df.index and df.loc[test_name, col] == 1:
-                fault_indices.append(rank)
-                break
+def compute_apfd(test_order: list[str], fault_file_path: str) -> float:
+    test_order = [test_id.split("src/tests/")[-1] for test_id in test_order]
+    with open(fault_file_path, 'r') as f:
+        file_content = f.read()
 
-    n_tests = len(selected_tests)
-    m = len(fault_detection_indices)
+    local_vars = {}
+    exec(file_content, {}, local_vars)
+    fault_detection = local_vars["fault_detection"]
+    n = len(test_order)
 
-    sum_ranks = sum(fault_detection_indices) - m 
-    apfd = 1 - (sum_ranks / (n_tests * m)) + (1 / (2 * n_tests))
+    Ti = []
+    for fault, detecting_tests in fault_detection.items():
+        # Find the first test in test_order that detects this fault
+        positions = [test_order.index(test) + 1 for test in detecting_tests if test in test_order]
+        if positions:
+            Ti.append(min(positions))  # Only count this fault if detected
+
+    m = len(Ti)  # Only detected faults count toward m
+
+    if m == 0:
+        return 0.0  # No faults were detected
+
+    apfd = 1 - (sum(Ti) / (n * m)) + (1 / (2 * n))
     return apfd
-'''
+
 
 def extract_execution_time(test_ids: List[str]) -> float:
     """
@@ -53,17 +59,23 @@ def extract_execution_time(test_ids: List[str]) -> float:
     :param test_ids: List of test IDs (e.g., relative paths or names).
     :return: Total execution time as a float.
     """
-    execution_time_path = Path(f"{config.MATRIX_FOLDER}/test_execution_times.json")
+    execution_time_path = Path(f"{config.MATRIX_FOLDER}/execution_times.csv")
 
-    with open(execution_time_path, "r") as f:
-        execution_time_data = json.load(f)
+    execution_time_data = {}
+    with open(execution_time_path, "r", newline="") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            test_id = row["test_id"]
+            time_val = float(row["execution_time"])
+            execution_time_data[test_id] = time_val
 
     return sum(execution_time_data.get(test_id, 0.0) for test_id in test_ids)
 
 if __name__ == "__main__":
     save_objective_data()
-    budget = 7
-    changes = "src/diffs/calculator_1.txt"
+    budget = 20
+    change = "calculator_13.txt"
+    changes = f"{config.DIFF_FOLDER}/calculator_1.txt"
     changes = get_changed_files_and_lines_mock(changes)
     tests_full_coverage, tests_diff_coverage, tests_execution_time, tests_failure_rates = select_test_cases(budget, changes)
     test_objective_dict = {
@@ -78,11 +90,11 @@ if __name__ == "__main__":
             print("-------------------------")
             total_coverage = compute_coverage(tests, Path(f"{config.MATRIX_FOLDER}/total_coverage_matrix.csv"))
             diff_coverage = compute_coverage(tests, Path(f"{config.MATRIX_FOLDER}/diff_coverage_matrix.csv"))
-            #apfd = compute_apfd(fault_detection_indices=[1, 2, 4], selected_tests=tests)
-            #time_taken = extract_execution_time(tests)
+            apfd = compute_apfd(tests, f"{config.APFD_FOLDER}/{change}")
+            time_taken = extract_execution_time(tests)
 
             print(f"Total Coverage: {total_coverage: .2f}")
             print(f"Coverage of Changes: {diff_coverage:.2f}")
-            #print(f"APFD: {apfd:.2f}")
-            #print(f"Execution Time: {time_taken:.2f} seconds")
+            print(f"APFD: {apfd:.2f}")
+            print(f"Execution Time: {time_taken:.2f} seconds")
             print("-------------------------")

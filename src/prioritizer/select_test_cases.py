@@ -46,8 +46,7 @@ def save_objective_data():
     test_files = get_all_test_files(config.TEST_FOLDER)
     source_files = get_all_source_files(config.TARGET_FOLDER)
     matrix, test_ids, code_lines = compute_total_coverage(test_files, source_files)
-    # TODO
-    test_execution_times = save_test_execution_times(test_files)
+    save_test_execution_times(test_ids)
     simulate_historic_failure_rates(test_ids)
 
 
@@ -55,15 +54,13 @@ def select_test_cases(budget: int, changes: str) -> tuple[list, list, list, list
     # Extract objective information
     matrix, test_ids, code_lines = get_total_coverage()
     diff_matrix, diff_code_lines = compute_diff_coverage(matrix, test_ids, code_lines, changes)
-    # TODO
-    test_execution_times = get_test_execution_times(test_ids)
+    execution_times = get_test_execution_times(test_ids)
     test_failure_rates = get_failure_rates(test_ids)
 
     # Select the test cases
     tests_full_coverage = greedy_select(test_ids, budget, prioritize_coverage, matrix)
     tests_diff_coverage = greedy_select(test_ids, budget, prioritize_coverage, diff_matrix)
-    #reduced_test_set_coverage_per_cost = greedy_select(test_ids, budget, prioritize_execution_time, test_execution_times)
-    tests_execution_time = None
+    tests_execution_time = greedy_select(test_ids, budget, prioritize_execution_time, execution_times)
     tests_failure_rates = greedy_select(test_ids, budget, prioritize_fault_detection, test_failure_rates)
 
     return tests_full_coverage, tests_diff_coverage, tests_execution_time, tests_failure_rates

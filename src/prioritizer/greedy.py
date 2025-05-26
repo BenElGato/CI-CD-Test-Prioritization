@@ -60,7 +60,7 @@ def prioritize_execution_time(test_cases: List[str], execution_times_array: np.n
     '''
     scores = []
     for i in range(len(test_cases)):
-        time = execution_times_array[i][0]
+        time = execution_times_array[i]
         score = 1.0 / time if time > 0 else 0.0
         scores.append(score)
     return scores
