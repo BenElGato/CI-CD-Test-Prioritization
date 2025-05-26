@@ -9,6 +9,15 @@ def test_add_subtract_multiply():
     assert calc.subtract(5, 3) == 2
     assert calc.multiply(5, 3) == 15
 
+def test_add():
+    assert calc.add(5, 3) == 8
+
+def test_subtract():
+    assert calc.subtract(5, 3) == 2
+
+def test_multiply():
+    assert calc.multiply(5, 3) == 15
+
 def test_divide():
     with pytest.raises(ZeroDivisionError):
         calc.divide(10, 0)
@@ -76,6 +85,10 @@ def test_large_factorial():
 def test_very_large_factorial():
     result = calc.factorial(9000)
     assert result == math.factorial(9000)
+
+def test_neg_factorial():
+    result = calc.factorial(-1)
+    assert result == -1
 
 def test_large_fibonacci():
     result = calc.fibonacci(35)
