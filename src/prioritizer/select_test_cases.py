@@ -1,6 +1,12 @@
 import os
 import json
 from typing import List
+from pymoo.algorithms.moo.moead import MOEAD
+from pymoo.algorithms.moo.nsga3 import NSGA3
+from pymoo.algorithms.moo.spea2 import SPEA2
+from pymoo.algorithms.moo.nsga2 import NSGA2
+from pymoo.util.ref_dirs import get_reference_directions
+
 
 from src.objectives.CoverageOnDIffs import compute_diff_coverage
 from src.objectives.ExecutionTime import get_test_execution_times, save_test_execution_times
@@ -9,6 +15,7 @@ from src.objectives.TotalCoverage import compute_total_coverage, get_total_cover
 from src.prioritizer.greedy import greedy_select, prioritize_coverage, \
     prioritize_execution_time, prioritize_fault_detection
 from src.prioritizer.diff_parser import get_changed_files_and_lines_mock
+from src.prioritizer.multi_objective import multiobjective_select
 import config
 
 
@@ -50,7 +57,7 @@ def save_objective_data():
     simulate_historic_failure_rates(test_ids)
 
 
-def select_test_cases(budget: int, changes: str) -> tuple[list, list, list, list]:
+def select_test_cases(budget: int, changes: str) -> tuple[list[str], list[str], list[str], list[str], list[str], list[str], list[str]]:
     # Extract objective information
     matrix, test_ids, code_lines = get_total_coverage()
     diff_matrix, diff_code_lines = compute_diff_coverage(matrix, test_ids, code_lines, changes)
@@ -63,7 +70,35 @@ def select_test_cases(budget: int, changes: str) -> tuple[list, list, list, list
     tests_execution_time = greedy_select(test_ids, budget, prioritize_execution_time, execution_times)
     tests_failure_rates = greedy_select(test_ids, budget, prioritize_fault_detection, test_failure_rates)
 
-    return tests_full_coverage, tests_diff_coverage, tests_execution_time, tests_failure_rates
+    tests_nsga2 = multiobjective_select(
+        test_cases=test_ids,
+        budget=budget,
+        coverage=matrix,
+        diff_coverage=diff_matrix,
+        execution_time=execution_times,
+        failure_rates=test_failure_rates,
+        algorithm_name="nsga2"
+    )
+    tests_nsga3 = multiobjective_select(
+        test_cases=test_ids,
+        budget=budget,
+        coverage=matrix,
+        diff_coverage=diff_matrix,
+        execution_time=execution_times,
+        failure_rates=test_failure_rates,
+        algorithm_name="nsga3"
+    )
+    tests_spea2 = multiobjective_select(
+        test_cases=test_ids,
+        budget=budget,
+        coverage=matrix,
+        diff_coverage=diff_matrix,
+        execution_time=execution_times,
+        failure_rates=test_failure_rates,
+        algorithm_name="spea2"
+    )
+
+    return tests_full_coverage, tests_diff_coverage, tests_execution_time, tests_failure_rates, tests_nsga2, tests_nsga3, tests_spea2
 
 if __name__ == "__main__":
     budget = 7

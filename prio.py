@@ -27,13 +27,15 @@ def main():
             tests_full_coverage,
             tests_diff_coverage,
             tests_coverage_per_cost,
-            tests_failure_rates
+            tests_failure_rates,
+            tests_nsga2
         ) = select_test_cases(budget, changes)
 
         print(f"Full coverage: {tests_full_coverage}")
         print(f"Diff coverage: {tests_diff_coverage}")
         print(f"Coverage per cost: {tests_coverage_per_cost}")
         print(f"Fault detection: {tests_failure_rates}")
+        print(f"NSGA2: {tests_nsga2}")
     else:
         raise ValueError(f"Unknown operator: {operator}")
 
