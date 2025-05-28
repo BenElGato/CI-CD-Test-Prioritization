@@ -77,12 +77,15 @@ if __name__ == "__main__":
     change = "calculator_13.txt"
     changes = f"{config.DIFF_FOLDER}/calculator_1.txt"
     changes = get_changed_files_and_lines_mock(changes)
-    tests_full_coverage, tests_diff_coverage, tests_execution_time, tests_failure_rates = select_test_cases(budget, changes)
+    tests_full_coverage, tests_diff_coverage, tests_execution_time, tests_failure_rates, tests_nsga2, tests_nsga3, tests_spea2 = select_test_cases(budget, changes)
     test_objective_dict = {
         "Full Coverage": tests_full_coverage,
         "Diff Coverage": tests_diff_coverage,
         "Coverage per Cost": tests_execution_time,
-        "Fault Detection": tests_failure_rates}
+        "Fault Detection": tests_failure_rates,
+        "NSGA-II": tests_nsga2,
+        "NSGA-III": tests_nsga3,
+        "SPEA-II": tests_spea2}
 
     for objective, tests in test_objective_dict.items():
         if tests != None:

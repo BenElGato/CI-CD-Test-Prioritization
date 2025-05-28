@@ -4,3 +4,5 @@ numpy~=2.2.4
 pytest-json-report
 pandas
 freezegun
+deap
+pymoo
