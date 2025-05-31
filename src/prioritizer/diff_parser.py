@@ -108,10 +108,3 @@ def get_changed_files_and_lines(
     """
     diff_text = get_diff(base, head)
     return parse_diff(diff_text)
-
-
-if __name__ == "__main__":
-    # Example usage: print changed lines per file
-    changes = get_changed_files_and_lines()
-    for f, lines in changes.items():
-        print(f"{f}: {sorted(lines)}")
