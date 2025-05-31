@@ -4,16 +4,16 @@ import pandas as pd
 import config
 from src.objectives.SharedFunctions import save_matrix_with_labels
 
-def compute_diff_coverage(matrix: np.ndarray, test_ids: list[str], code_lines: list[str], changes: dict[str, set[int]]) -> Tuple[np.ndarray, list[str]]:
+def compute_diff_coverage(matrix: np.ndarray, test_ids: list[str], code_lines: list[str], changes_dict: dict[str, set[int]]) -> Tuple[np.ndarray, list[str]]:
     '''
     :param matrix: Coverage matrix of all test cases and lines
     :param test_ids: List of test case identifiers, e.g. "test_file1.py::test_add"
     :param code_lines: List of code lines, e.g. "file1.py:10"
-    :param changes: Path to the diff file containing the changes between two versions, e.g. "v1.0" and "v1.1"
+    :param changes_dict: Path to the diff file containing the changes between two versions, e.g. "v1.0" and "v1.1"
     :return: Reduced coverage matrix with only the relevant lines for the diffs and the list of relevant lines
     '''
 
-    csv_columns = [f"{file}:{lineno}" for file, lines in changes.items() for lineno in sorted(lines)]
+    csv_columns = [f"{file}:{lineno}" for file, lines in changes_dict.items() for lineno in sorted(lines)]
     cleaned_code_line_names = [code_line.split('src/targets/')[-1] for code_line in csv_columns]
     # Convert NumPy matrix to pandas DataFrame
     matrix_df = pd.DataFrame(matrix, index=test_ids, columns=code_lines)

@@ -1,127 +1,127 @@
 {
   "test_calculator.py::test_add": [
     0,
-    14
+    18
   ],
   "test_calculator.py::test_add_subtract_multiply": [
     2,
-    14
+    18
   ],
   "test_calculator.py::test_divide": [
-    0,
-    14
+    1,
+    18
   ],
   "test_calculator.py::test_factorial": [
-    2,
-    14
+    1,
+    18
   ],
   "test_calculator.py::test_factorial_expensive": [
-    14,
-    14
+    18,
+    18
   ],
   "test_calculator.py::test_fibonacci": [
-    2,
-    14
+    1,
+    18
   ],
   "test_calculator.py::test_gcd_lcm": [
     1,
-    14
+    18
   ],
   "test_calculator.py::test_gcd_neg": [
     0,
-    14
+    18
   ],
   "test_calculator.py::test_is_prime": [
     2,
-    14
+    18
   ],
   "test_calculator.py::test_large_factorial": [
     2,
-    14
+    18
   ],
   "test_calculator.py::test_large_fibonacci": [
-    2,
-    14
+    1,
+    18
   ],
   "test_calculator.py::test_large_prime": [
     3,
-    14
+    18
   ],
   "test_calculator.py::test_modulo": [
-    14,
-    14
+    18,
+    18
   ],
   "test_calculator.py::test_multiply": [
     2,
-    14
+    18
   ],
   "test_calculator.py::test_neg_factorial": [
-    14,
-    14
+    18,
+    18
   ],
   "test_calculator.py::test_negative_fibonacci": [
-    2,
-    14
+    1,
+    18
   ],
   "test_calculator.py::test_power": [
     1,
-    14
+    18
   ],
   "test_calculator.py::test_small_fibonacci": [
-    2,
-    14
+    1,
+    18
   ],
   "test_calculator.py::test_small_prime": [
     2,
-    14
+    18
   ],
   "test_calculator.py::test_subtract": [
     0,
-    14
+    18
   ],
   "test_calculator.py::test_tiny_prime": [
     0,
-    14
+    18
   ],
   "test_calculator.py::test_very_large_factorial": [
-    2,
-    14
+    3,
+    18
   ],
   "test_calculator.py::test_very_large_prime": [
     3,
-    14
+    18
   ],
   "test_date_utils.py::test_add_subtract_days": [
-    14,
-    14
+    18,
+    18
   ],
   "test_date_utils.py::test_current_date": [
-    14,
-    14
+    18,
+    18
   ],
   "test_date_utils.py::test_days_between": [
     0,
-    14
+    18
   ],
   "test_date_utils.py::test_is_leap_year": [
     0,
-    14
+    18
   ],
   "test_date_utils.py::test_is_weekend": [
-    14,
-    14
+    18,
+    18
   ],
   "test_date_utils.py::test_leap_year_edge_case": [
     0,
-    14
+    18
   ],
   "test_date_utils.py::test_next_weekday": [
     0,
-    14
+    18
   ],
   "test_easter.py::test_easter_bad_method": [
     0,
-    14
+    18
   ],
   "test_easter.py::test_easter_julian": [
     0,
@@ -136,119 +136,119 @@
     0
   ],
   "test_ecommerce.py::test_order_payment": [
-    14,
-    14
+    18,
+    18
   ],
   "test_ecommerce.py::test_product_availability_and_stock": [
     0,
-    14
+    18
   ],
   "test_ecommerce.py::test_shopping_cart": [
-    14,
-    14
+    18,
+    18
   ],
   "test_geometry.py::test_circle_area": [
-    14,
-    14
+    18,
+    18
   ],
   "test_geometry.py::test_circle_circumference": [
     0,
-    14
+    18
   ],
   "test_geometry.py::test_cylinder_volume_and_surface_area": [
     0,
-    14
+    18
   ],
   "test_geometry.py::test_distance_between_points": [
     0,
-    14
+    18
   ],
   "test_geometry.py::test_is_right_triangle": [
     0,
-    14
+    18
   ],
   "test_geometry.py::test_rectangle_area_and_perimeter": [
     0,
-    14
+    18
   ],
   "test_geometry.py::test_sphere_volume_and_surface_area": [
-    14,
-    14
+    18,
+    18
   ],
   "test_geometry.py::test_triangle_area_and_perimeter": [
     0,
-    14
+    18
   ],
   "test_string_utils.py::test_case_conversion": [
     0,
-    14
+    18
   ],
   "test_string_utils.py::test_count_vowels_and_consonants": [
     0,
-    14
+    18
   ],
   "test_string_utils.py::test_is_anagram": [
     0,
-    14
+    18
   ],
   "test_string_utils.py::test_is_palindrome": [
-    14,
-    14
+    17,
+    18
   ],
   "test_string_utils.py::test_longest_common_prefix": [
     0,
-    14
+    18
   ],
   "test_string_utils.py::test_remove_whitespace": [
     0,
-    14
+    18
   ],
   "test_string_utils.py::test_reverse": [
     0,
-    14
+    18
   ],
   "test_user_profile.py::test_email_domain": [
     0,
-    14
+    18
   ],
   "test_user_profile.py::test_friend_management": [
     0,
-    14
+    18
   ],
   "test_user_profile.py::test_is_adult": [
-    14,
-    14
+    17,
+    18
   ],
   "test_user_profile.py::test_mutual_friends": [
     0,
-    14
+    18
   ],
   "test_utils.py::test_utils_default_tz_info_aware": [
     0,
-    14
+    18
   ],
   "test_utils.py::test_utils_default_tz_info_naive": [
     0,
-    14
+    18
   ],
   "test_utils.py::test_utils_today": [
     0,
-    14
+    18
   ],
   "test_utils.py::test_utils_today_tz_info": [
     0,
-    14
+    18
   ],
   "test_utils.py::test_utils_today_tz_info_different_day": [
     0,
-    14
+    18
   ],
   "test_utils.py::test_utils_within_delta": [
     0,
-    14
+    18
   ],
   "test_utils.py::test_utils_within_delta_with_negative_delta": [
     0,
-    14
+    18
   ]
 }

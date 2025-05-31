@@ -18,6 +18,7 @@ def compute_coverage(selected_tests: List[str], coverage_matrix_path: Path) -> f
     selected_matrix = df.loc[valid_tests].to_numpy().astype(int)
     covered_lines = np.any(selected_matrix, axis=0)
     coverage = np.sum(covered_lines) / covered_lines.shape[0]
+
     return coverage
 
 def compute_apfd(test_order: list[str], fault_file_path: str) -> float:
@@ -60,24 +61,30 @@ if __name__ == "__main__":
     for change_file in os.listdir(config.DIFF_FOLDER):
         if not change_file.endswith(".txt"):
             continue
+        print("Processing change file:", change_file)
         changes = f"{config.DIFF_FOLDER}/{change_file}"
-
+        if change_file == "calculator_14.txt":
+            pass
         for algorithm in algorithms:
             tests = select_test_cases(budget, changes, algorithm=algorithm)
             total_coverage = compute_coverage(tests, Path(f"{config.MATRIX_FOLDER}/total_coverage_matrix.csv"))
             diff_coverage = compute_coverage(tests, Path(f"{config.MATRIX_FOLDER}/diff_coverage_matrix.csv"))
+
             apfd = compute_apfd(tests, f"{config.APFD_FOLDER}/{change_file}")
             time_taken = extract_execution_time(tests)
 
+            if not diff_coverage:
+                diff_coverage = 0.0
             # Store results
             results[algorithm]["total_coverage"].append(total_coverage)
             results[algorithm]["diff_coverage"].append(diff_coverage)
             results[algorithm]["apfd"].append(apfd)
             results[algorithm]["execution_time"].append(time_taken)
-
     # Print aggregated results
     print("\n=== Aggregated Results ===")
+
     for algorithm, metrics in results.items():
+        print(metrics['diff_coverage'])
         print(f"\nAlgorithm: {algorithm}")
         print(f"Avg Total Coverage:     {np.mean(metrics['total_coverage']):.2f}")
         print(f"Avg Diff Coverage:      {np.mean(metrics['diff_coverage']):.2f}")

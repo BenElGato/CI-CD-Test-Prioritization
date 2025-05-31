@@ -44,8 +44,6 @@ def save_test_execution_times(test_ids: List[str]) -> None:
         writer.writerow(["test_id", "execution_time"])
         writer.writerows(results)
 
-    print(f"Execution times saved to {output_path}")
-
 def get_test_execution_times(test_ids: List[str]) -> np.ndarray:
     """
     Retrieve execution times for the given test IDs from the CSV file.
