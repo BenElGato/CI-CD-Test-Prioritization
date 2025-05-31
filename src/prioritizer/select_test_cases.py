@@ -50,8 +50,8 @@ def main():
     selected_tests = select_test_cases(args.budget, args.changes, args.algorithm)
     print("Selected Test Cases:", selected_tests)
     with open("selected_tests.txt", "w") as f:
-        for idx in selected_tests:
-            f.write(str(idx) + "\n")
+        for test_file in selected_tests:
+            f.write(test_file + "\n")
 
 if __name__ == "__main__":
     main()
