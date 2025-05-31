@@ -47,7 +47,7 @@ jobs:
       - name: Select tests related to changed files
         run: |
           export PYTHONPATH=$PYTHONPATH:$(pwd)/src
-          python src/prioritizer/select_test_cases.py --budget 10 --algorithm nsgas --changed_files changed_files.txt --output .selected_tests
+          python src/prioritizer/select_test_cases.py --budget 10 --algorithm nsgas --changeds changed_files.txt
 
       - name: Run selected tests and measure time
         run: |
