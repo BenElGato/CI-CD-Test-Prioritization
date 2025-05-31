@@ -45,7 +45,7 @@ jobs:
     
       # Select tests related to changed files
       - name: Select tests related to changed files
-        run: python scripts/select_tests.py
+        run: python src/select_test_cases.py --algorithm nsgas
 
       - name: Run selected tests and measure time
         run: |
