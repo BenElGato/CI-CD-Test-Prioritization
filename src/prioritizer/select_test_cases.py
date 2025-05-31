@@ -1,14 +1,21 @@
 from typing import List
+import argparse
 from src.objectives.CoverageOnDIffs import compute_diff_coverage
 from src.objectives.ExecutionTime import get_test_execution_times
 from src.objectives.FailureRates import get_failure_rates
 from src.objectives.TotalCoverage import get_total_coverage
+from src.prioritizer.diff_parser import get_changed_files_and_lines_mock
 from src.prioritizer.greedy import greedy_select, prioritize_coverage, \
     prioritize_execution_time, prioritize_fault_detection
 from src.prioritizer.multi_objective import multiobjective_select
 
 
 def select_test_cases(budget: int, changes: str, algorithm: str) -> List[str]:
+    try:
+        changes = get_changed_files_and_lines_mock(changes)
+    except Exception as e:
+        print(f"Error processing {changes}: {e}")
+        return []
     # Extract objective information
     matrix, test_ids, code_lines = get_total_coverage()
     diff_matrix, diff_code_lines = compute_diff_coverage(matrix, test_ids, code_lines, changes)
@@ -38,8 +45,6 @@ def select_test_cases(budget: int, changes: str, algorithm: str) -> List[str]:
         return greedy_select(test_ids, budget, prioritize_coverage, matrix)
 
 def main():
-    import argparse
-
     parser = argparse.ArgumentParser(description="Select test cases based on budget and algorithm.")
     parser.add_argument("--budget", type=int, required=True, help="The time budget for test execution")
     parser.add_argument("--changes", type=str, required=True, help="Code changes as a string")

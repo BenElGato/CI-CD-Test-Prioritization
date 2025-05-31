@@ -33,9 +33,12 @@ def save_file_mapping(test_files: List[str], output_path: str):
 
     print(f"Saved mapping of {len(test_files)} test files to: {output_path}")
 
-if __name__ == "__main__":
+def save_objective_data():
     test_files = get_all_test_files(config.TEST_FOLDER)
     source_files = get_all_source_files(config.TARGET_FOLDER)
     matrix, test_ids, code_lines = compute_total_coverage(test_files, source_files)
     save_test_execution_times(test_ids)
     simulate_historic_failure_rates(test_ids)
+
+if __name__ == "__main__":
+    save_objective_data()

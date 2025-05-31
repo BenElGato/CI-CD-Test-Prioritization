@@ -26,7 +26,7 @@ def multiobjective_select(
     failure_rates: np.ndarray,
     algorithm_name: str = "nsga2",
     generations: int = 50,
-    pop_size: int = 100
+    pop_size: int = 500
 ) -> List[str]:
 
     num_tests = len(test_cases)
