@@ -51,13 +51,7 @@ jobs:
 
       - name: Run selected tests and measure time
         run: |
-          if [ -s .selected_tests ]; then
-            echo "Running selected tests..."
-            tests=$(cat .selected_tests | tr '\n' ' ')
-          else
-            echo "No related tests found, running all tests as fallback..."
-            tests="tests/"
-          fi
+          xargs -a selected_tests.txt pytest -v
 
           start=$(date +%s)
           coverage run -m pytest --maxfail=1 --disable-warnings -q
