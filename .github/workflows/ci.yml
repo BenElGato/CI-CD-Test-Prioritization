@@ -50,6 +50,8 @@ jobs:
           python src/prioritizer/select_test_cases.py --budget 10 --algorithm nsgas --changes changed_files.txt
 
       - name: Run selected tests and measure time
+        env:
+          PYTHONPATH: ${{ github.workspace }}
         run: |
           xargs -a selected_tests.txt pytest -v
 
