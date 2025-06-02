@@ -69,7 +69,7 @@ def easter(year, method=EASTER_WESTERN):
         # Old method
         i = (19*g + 15) % 30
         # Bug: uses float division, "/"" instead of "//"
-        j = (y + y//4 + i) % 7
+        j = (y + y/4 + i) % 7
         if method == 2:
             # Extra dates to convert Julian to Gregorian date
             e = 10
